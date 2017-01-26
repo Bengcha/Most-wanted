@@ -1,4 +1,3 @@
-var people = [];
 function initSearch(people)
 {
 	var userInput = prompt("Choose a number [1 - 6]\n[1] Name \n[2] Descendants \n[3] Next Kin \n[4] Immediate Family Members \n[5] Traits \n[6] Cancel");
@@ -6,9 +5,14 @@ function initSearch(people)
 	switch (userInput)
 	{
 		case "1":
-		promptForPersonName(people);
+		var fName = prompt("What is the person first name?");
+		var lName = prompt("What is the person last name?");
+		var result = displayPersonInformation(people, initSearchByName(people, fName, lName));
 		break;
 		case "2":
+		var fName = prompt("What is the person first name?");
+		var lName = prompt("What is the person last name?");
+		var result = getDescendant(people, initSearchByName(people, fName, lName, personId(people)));
 		break;
 		case "3":
 		break;
@@ -23,27 +27,14 @@ function initSearch(people)
 		alert("Input was invalid");
 		break;
 	}
+	alert(result)
 }
 
-function promptForPersonName(people)
-{
-	var name = initSearchByName(people, prompt("What is the person first name?"), prompt("What is the person last name?"));
-	if (name == people.firstName && name == people.lastName)
-	{
-		return name.charAt(0).toUpperCase() + name.slice(1);
-	}
-	else
-	{
-		alert("No name found");
-		return undefined;
-	}
-}
-
-function initSearchByName(fName, LName)
+function initSearchByName(people, fName, lName)
 {
 	return people.filter(function(person)
 	{
-		if (person.firstName.toLowerCase() == fName.toLowerCase() && person.lastName.toLowerCase() == LName)
+		if(person.firstName.toLowerCase() == fName.toLowerCase() && person.lastName.toLowerCase() == lName.toLowerCase())
 		{
 			return true;
 		}
@@ -52,7 +43,48 @@ function initSearchByName(fName, LName)
 			return false;
 		}
 	});
-	return undefined;
+}
+
+function displayPersonInformation(people)
+{
+	var person = people[0];
+	var personInformation = 
+	"Id Number: " + person.id +
+	"\nFirst Name: " + person.firstName +
+	"\nLast Name: " + person.lastName +
+	"\nGender: " + person.gender +
+	"\nDate of Birth: " + person.dob +
+	"\nHeight: " + person.height +
+	"\nWeight: " + person.weight +
+	"\nEyes Color: " + person.eyeColor +
+	"\nOccupation: " + person.occupation +
+	"\nParents:" + person.paretns +
+	"\nCurrent Spouse: " + person.currentSpouse;
+
+	return personInformation;
+}
+
+function personId(people)
+{
+	var personId = people.id;
+	return personId;
+}
+
+function getDescendant(people, personId)
+{
+	var person = people[0];
+	return people.filter(function(descendants)
+	{
+		if (descendants.parents == person.id)
+		{
+			person.firstName + person.lastName;
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	});
 }
 
 function initSearchByTraits(){
