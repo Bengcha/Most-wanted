@@ -4,7 +4,11 @@ function initSearch(people)
     switch (input)
     {
         case "1":
-        initSearchByName(people);
+        var firstName = getFirstName();
+        var lastName = getLastName();
+        initSearchByName(people, firstName, lastName);
+
+
         break;
         case "2":
         SearchForDescendant(people);
@@ -67,38 +71,21 @@ function getLastName()
     return lastName;
 }
 
-function initSearchByName(people)
+function initSearchByName(people, firstName, lastName)
 {
-    var firstName = getFirstName();
-    var lastName = getLastName();
-    if(isNaN(firstName) === true && isNaN(lastName) === true)
+  return people.filter(function (person)
+  {
+    if (person.firstName.toLowerCase() === firstName.toLowerCase() && person.lastName.toLowerCase() === lastName.toLowerCase())
     {
-        var searchPerson = people.filter(function (person)
-        {
-            if (person.firstName.toLowerCase() === firstName.toLowerCase() && person.lastName.toLowerCase() === lastName.toLowerCase())
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        });
-        if(searchPerson.length === 1)
-        {
-            displayPersonData(searchPerson[0]);
-        }
-        else
-        {
-            alert("No name found");
-            initSearch(people);
-        }
+        displayPersonData(person);
+        return true;
     }
     else
     {
-        alert("No name found");
-        initSearch(people);
+      return false;
     }
+  }
+  );
 }
 
 function SearchForDescendant(people)
