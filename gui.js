@@ -31,17 +31,17 @@ function initSearch(people)
 function displayPersonData(person)
 {
     alert(
-        "First Name: " + person.firstName + 
+        "First Name: " + person.firstName +
         "\nLast Name: " + person.lastName +
-        "\nGender: " + person.gender + 
+        "\nGender: " + person.gender +
         "\nDate of Birth: " + person.dob +
-        "\nAge: " + 
-        "\nHeight: " + person.height + 
+        "\nAge: " +
+        "\nHeight: " + person.height +
         "\nWeight: " + person.weight +
-        "\nEyes Color: " + person.eyeColor + 
-        "\nOccupation: " + person.occupation + 
+        "\nEyes Color: " + person.eyeColor +
+        "\nOccupation: " + person.occupation +
         "\nParents: " + person.parents +
-        "\nSpouse: " + person.currentSpouse);       
+        "\nSpouse: " + person.currentSpouse);
 }
 
 function displayNameOnly(people)
@@ -71,26 +71,26 @@ function initSearchByName(people)
 {
     var firstName = getFirstName();
     var lastName = getLastName();
-    if(isNaN(firstName) === true && isNaN(lastName) === true) 
+    if(isNaN(firstName) === true && isNaN(lastName) === true)
     {
-        var searchPerson = people.filter(function (person) 
+        var searchPerson = people.filter(function (person)
         {
-            if (person.firstName.toLowerCase() == firstName.toLowerCase() && person.lastName.toLowerCase() == lastName.toLowerCase()) 
+            if (person.firstName.toLowerCase() === firstName.toLowerCase() && person.lastName.toLowerCase() === lastName.toLowerCase())
             {
-                return true
+                return true;
             }
-            else 
+            else
             {
-                return false
+                return false;
             }
         });
         if(searchPerson.length === 1)
         {
             displayPersonData(searchPerson[0]);
         }
-        else 
+        else
         {
-            alert("No name found")
+            alert("No name found");
             initSearch(people);
         }
     }
@@ -105,17 +105,17 @@ function SearchForDescendant(people)
 {
     var firstName = getFirstName();
     var lastName = getLastName();
-    if(isNaN(firstName) === true && isNaN(lastName) === true) 
+    if(isNaN(firstName) === true && isNaN(lastName) === true)
     {
-        var searchPerson = people.filter(function (person) 
+        var searchPerson = people.filter(function (person)
         {
-            if (person.firstName.toLowerCase() == firstName.toLowerCase() && person.lastName.toLowerCase() == lastName.toLowerCase()) 
+            if (person.firstName.toLowerCase() === firstName.toLowerCase() && person.lastName.toLowerCase() === lastName.toLowerCase())
             {
-                return true
+                return true;
             }
-            else 
+            else
             {
-                return false
+                return false;
             }
         });
         if(searchPerson.length === 1)
@@ -143,9 +143,9 @@ function displayDescendant(person, people)
 
 function getDescendants(person, people,counter=-1, list=[])
 {
-    if(person != undefined) 
+    if(person !== undefined)
     {
-        var descendants = people.filter(function (descendant) 
+        var descendants = people.filter(function (descendant)
         {
             return descendant.parents.includes(person.id);
         });
@@ -161,17 +161,17 @@ function SearchForImmediateFamily(people)
 {
     var firstName = getFirstName();
     var lastName = getLastName();
-    if(isNaN(firstName) === true && isNaN(lastName) === true) 
+    if(isNaN(firstName) === true && isNaN(lastName) === true)
     {
-        var searchPerson = people.filter(function (person) 
+        var searchPerson = people.filter(function (person)
         {
-            if (person.firstName.toLowerCase() == firstName.toLowerCase() && person.lastName.toLowerCase() == lastName.toLowerCase()) 
+            if (person.firstName.toLowerCase() === firstName.toLowerCase() && person.lastName.toLowerCase() === lastName.toLowerCase())
             {
-                return true
+                return true;
             }
-            else 
+            else
             {
-                return false
+                return false;
             }
         });
         if(searchPerson.length === 1)
@@ -215,7 +215,7 @@ function getFamilyMemebers(person, people)
 
 function getParents(person, people)
 {
-    var parents = people.filter(function (family) 
+    var parents = people.filter(function (family)
     {
         return person.parents.includes(family.id);
     });
@@ -226,20 +226,20 @@ function getSibling(person, people)
 {
     var sibling = people.filter(function(family)
     {
-        return family.parents.includes(person.parents)
-    })
+        return family.parents.includes(person.parents);
+    });
     return sibling;
 }
 
 function getSpouse(person, people){
-    var spouse = people.filter(function (family) 
+    var spouse = people.filter(function (family)
     {
-        return family.currentSpouse == person.id;
+        return family.currentSpouse === person.id;
     });
     return spouse;
 }
 function getChildren(person, people){
-    var childrenList = people.filter(function (family) 
+    var childrenList = people.filter(function (family)
     {
         return family.parents.includes(person.id);
     });
@@ -250,17 +250,17 @@ function SearchForNextKin(people)
 {
     var firstName = getFirstName();
     var lastName = getLastName();
-    if(isNaN(firstName) === true && isNaN(lastName) === true) 
+    if(isNaN(firstName) === true && isNaN(lastName) === true)
     {
-        var searchPerson = people.filter(function (person) 
+        var searchPerson = people.filter(function (person)
         {
-            if (person.firstName.toLowerCase() == firstName.toLowerCase() && person.lastName.toLowerCase() == lastName.toLowerCase()) 
+            if (person.firstName.toLowerCase() === firstName.toLowerCase() && person.lastName.toLowerCase() === lastName.toLowerCase())
             {
-                return true
+                return true;
             }
-            else 
+            else
             {
-                return false
+                return false;
             }
         });
         if(searchPerson.length === 1)
