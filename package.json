@@ -1,0 +1,25 @@
+{
+  "name": "most-wanted",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "karma start karma.conf.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bengcha/Most-wanted.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bengcha/Most-wanted/issues"
+  },
+  "homepage": "https://github.com/Bengcha/Most-wanted#readme",
+  "devDependencies": {
+    "babel-eslint": "^7.1.1",
+    "eslint": "^3.14.1",
+    "eslint-config-defaults": "^9.0.0",
+    "eslint-plugin-react": "^6.9.0"
+  }
+}
