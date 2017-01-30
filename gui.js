@@ -1,113 +1,281 @@
 function initSearch(people)
 {
-	var userInput = prompt("Choose a number [1 - 6]\n[1] Name \n[2] Descendants \n[3] Next Kin \n[4] Immediate Family Members \n[5] Traits \n[6] Cancel");
-	if (userInput != "1" || userInput != "2" || userInput != "3" || userInput != "4" || userInput != "5")
-	switch (userInput)
-	{
-		case "1":
-		var fName = prompt("What is the person first name?");
-		var lName = prompt("What is the person last name?");
-		var result = displayPersonInformation(people, initSearchByName(people, fName, lName));
-		break;
-		case "2":
-		var fName = prompt("What is the person first name?");
-		var lName = prompt("What is the person last name?");
-		var result = getDescendant(people, initSearchByName(people, fName, lName, personId(people)));
-		break;
-		case "3":
-		break;
-		case "4":
-		break;
-		case "5":
-		break;
-		case "6":
-		alert("Search Terminated")
-		break;
-		default:
-		alert("Input was invalid");
-		break;
-	}
-	alert(result)
+    var input = prompt("[1] Search for person \n[2] Search for descendant \n[3] Search for immediate family members \n[4] Search for next Kin \n[5] Search for person by traits \n[6]Exit");
+    switch (input)
+    {
+        case "1":
+        initSearchByName(people);
+        break;
+        case "2":
+        SearchForDescendant(people);
+        break;
+        case "3":
+        SearchForImmediateFamily(people);
+        break;
+        case "4":
+        alert("Under Construction");
+        break;
+        case "5":
+        alert("Under Construction");
+        break;
+        case "6":
+        alert("Search Terminated");
+        break;
+        default:
+        alert("Please choose a valid option");
+        initSearch();
+        break;
+    }
 }
 
-function initSearchByName(people, fName, lName)
+function displayPersonData(person)
 {
-	return people.filter(function(person)
-	{
-		if(person.firstName.toLowerCase() == fName.toLowerCase() && person.lastName.toLowerCase() == lName.toLowerCase())
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	});
+    alert(
+        "First Name: " + person.firstName + 
+        "\nLast Name: " + person.lastName +
+        "\nGender: " + person.gender + 
+        "\nDate of Birth: " + person.dob +
+        "\nAge: " + 
+        "\nHeight: " + person.height + 
+        "\nWeight: " + person.weight +
+        "\nEyes Color: " + person.eyeColor + 
+        "\nOccupation: " + person.occupation + 
+        "\nParents: " + person.parents +
+        "\nSpouse: " + person.currentSpouse);       
 }
 
-function displayPersonInformation(people)
+function displayNameOnly(people)
 {
-	var person = people[0];
-	var personInformation = 
-	"Id Number: " + person.id +
-	"\nFirst Name: " + person.firstName +
-	"\nLast Name: " + person.lastName +
-	"\nGender: " + person.gender +
-	"\nDate of Birth: " + person.dob +
-	"\nHeight: " + person.height +
-	"\nWeight: " + person.weight +
-	"\nEyes Color: " + person.eyeColor +
-	"\nOccupation: " + person.occupation +
-	"\nParents:" + person.paretns +
-	"\nCurrent Spouse: " + person.currentSpouse;
-
-	return personInformation;
+    var nameString = [];
+    for(var i = 0; i < people.length; i++)
+    {
+        var name = people[i].firstName + " " + people[i].lastName;
+        nameString.push(name);
+    }
+    var fullName = nameString.join("\n");
+    alert(fullName);
 }
 
-function personId(people)
+function getFirstName()
 {
-	var personId = people.id;
-	return personId;
+    var firstName = prompt("Enter the person First Name");
+    return firstName;
 }
-
-function getDescendant(people, personId)
+function getLastName()
 {
-	var person = people[0];
-	return people.filter(function(descendants)
-	{
-		if (descendants.parents == person.id)
-		{
-			person.firstName + person.lastName;
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	});
+    var lastName = prompt("Enter the person Last Name");
+    return lastName;
 }
 
-function initSearchByTraits(){
-	;
+function initSearchByName(people)
+{
+    var firstName = getFirstName();
+    var lastName = getLastName();
+    if(isNaN(firstName) === true && isNaN(lastName) === true) 
+    {
+        var searchPerson = people.filter(function (person) 
+        {
+            if (person.firstName.toLowerCase() == firstName.toLowerCase() && person.lastName.toLowerCase() == lastName.toLowerCase()) 
+            {
+                return true
+            }
+            else 
+            {
+                return false
+            }
+        });
+        if(searchPerson.length === 1)
+        {
+            displayPersonData(searchPerson[0]);
+        }
+        else 
+        {
+            alert("No name found")
+            initSearch(people);
+        }
+    }
+    else
+    {
+        alert("No name found");
+        initSearch(people);
+    }
 }
-function displayResults(){
-	;
+
+function SearchForDescendant(people)
+{
+    var firstName = getFirstName();
+    var lastName = getLastName();
+    if(isNaN(firstName) === true && isNaN(lastName) === true) 
+    {
+        var searchPerson = people.filter(function (person) 
+        {
+            if (person.firstName.toLowerCase() == firstName.toLowerCase() && person.lastName.toLowerCase() == lastName.toLowerCase()) 
+            {
+                return true
+            }
+            else 
+            {
+                return false
+            }
+        });
+        if(searchPerson.length === 1)
+        {
+            displayDescendant(searchPerson[0], data);
+        }
+        else
+        {
+
+            alert("No Name Found");
+        }
+    }
+    else
+    {
+        alert("No name Found");
+        initSearch(people);
+    }
 }
-function isNumeric() {
-	;
+
+function displayDescendant(person, people)
+{
+    var descendants = getDescendants(person, people);
+    displayNameOnly(descendants);
 }
-function getAge(){
-	;
+
+function getDescendants(person, people,counter=-1, list=[])
+{
+    if(person != undefined) 
+    {
+        var descendants = people.filter(function (descendant) 
+        {
+            return descendant.parents.includes(person.id);
+        });
+        list.push(...descendants);
+
+        counter++;
+        getDescendants(list[counter], people, counter, list);
+    }
+    return list;
 }
-function getHeight(){
-	;
+
+function SearchForImmediateFamily(people)
+{
+    var firstName = getFirstName();
+    var lastName = getLastName();
+    if(isNaN(firstName) === true && isNaN(lastName) === true) 
+    {
+        var searchPerson = people.filter(function (person) 
+        {
+            if (person.firstName.toLowerCase() == firstName.toLowerCase() && person.lastName.toLowerCase() == lastName.toLowerCase()) 
+            {
+                return true
+            }
+            else 
+            {
+                return false
+            }
+        });
+        if(searchPerson.length === 1)
+        {
+            getImmediateFamily(searchPerson[0], data);
+        }
+        else
+        {
+
+            alert("No Name Found");
+        }
+    }
+    else
+    {
+        alert("No name Found");
+        initSearch(people);
+    }
 }
-function getWeight(){
-	;
+
+function getImmediateFamily(person, people)
+{
+    var familyMembers = getFamilyMemebers(person, people);
+    displayNameOnly(familyMembers);
 }
-function getEye(){
-	;
+
+function getFamilyMemebers(person, people)
+{
+    var parents = getParents(person, people);
+    var siblings = getSibling(person, people);
+    var spouse = getSpouse(person, people);
+    var children = getChildren(person, people);
+    var familyMember = [];
+
+    familyMember.push(...parents);
+    familyMember.push(...siblings);
+    familyMember.push(...spouse);
+    familyMember.push(...children);
+
+    return familyMember;
 }
-function getOccupation(){
-	;
+
+function getParents(person, people)
+{
+    var parents = people.filter(function (family) 
+    {
+        return person.parents.includes(family.id);
+    });
+    return parents;
+}
+
+function getSibling(person, people)
+{
+    var sibling = people.filter(function(family)
+    {
+        return family.parents.includes(person.parents)
+    })
+    return sibling;
+}
+
+function getSpouse(person, people){
+    var spouse = people.filter(function (family) 
+    {
+        return family.currentSpouse == person.id;
+    });
+    return spouse;
+}
+function getChildren(person, people){
+    var childrenList = people.filter(function (family) 
+    {
+        return family.parents.includes(person.id);
+    });
+    return childrenList;
+}
+
+function SearchForNextKin(people)
+{
+    var firstName = getFirstName();
+    var lastName = getLastName();
+    if(isNaN(firstName) === true && isNaN(lastName) === true) 
+    {
+        var searchPerson = people.filter(function (person) 
+        {
+            if (person.firstName.toLowerCase() == firstName.toLowerCase() && person.lastName.toLowerCase() == lastName.toLowerCase()) 
+            {
+                return true
+            }
+            else 
+            {
+                return false
+            }
+        });
+        if(searchPerson.length === 1)
+        {
+            getImmediateFamily(searchPerson[0], data);
+        }
+        else
+        {
+
+            alert("No Name Found");
+        }
+    }
+    else
+    {
+        alert("No name Found");
+        initSearch(people);
+    }
 }
