@@ -1,20 +1,18 @@
 function initSearch(people)
 {
     var input = prompt("[1] Search for person \n[2] Search for descendant \n[3] Search for immediate family members \n[4] Search for next Kin \n[5] Search for person by traits \n[6]Exit");
+    var firstName = getFirstName();
+    var lastName = getLastName();
     switch (input)
     {
         case "1":
-        var firstName = getFirstName();
-        var lastName = getLastName();
         initSearchByName(people, firstName, lastName);
-
-
         break;
         case "2":
-        SearchForDescendant(people);
+        SearchForDescendant(people, firstName, lastName);
         break;
         case "3":
-        SearchForImmediateFamily(people);
+        SearchForImmediateFamily(people, firstName, lastName);
         break;
         case "4":
         alert("Under Construction");
@@ -88,38 +86,20 @@ function initSearchByName(people, firstName, lastName)
   );
 }
 
-function SearchForDescendant(people)
+function SearchForDescendant(people, firstName, lastName)
 {
-    var firstName = getFirstName();
-    var lastName = getLastName();
-    if(isNaN(firstName) === true && isNaN(lastName) === true)
+  return people.filter(function (person)
+  {
+    if (person.firstName.toLowerCase() === firstName.toLowerCase() && person.lastName.toLowerCase() === lastName.toLowerCase())
     {
-        var searchPerson = people.filter(function (person)
-        {
-            if (person.firstName.toLowerCase() === firstName.toLowerCase() && person.lastName.toLowerCase() === lastName.toLowerCase())
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        });
-        if(searchPerson.length === 1)
-        {
-            displayDescendant(searchPerson[0], data);
-        }
-        else
-        {
-
-            alert("No Name Found");
-        }
+      displayDescendant(person, people);
+      return true;
     }
-    else
+  else
     {
-        alert("No name Found");
-        initSearch(people);
+      return false;
     }
+  });
 }
 
 function displayDescendant(person, people)
@@ -144,16 +124,13 @@ function getDescendants(person, people,counter=-1, list=[])
     return list;
 }
 
-function SearchForImmediateFamily(people)
+function SearchForImmediateFamily(people, firstName, lastName)
 {
-    var firstName = getFirstName();
-    var lastName = getLastName();
-    if(isNaN(firstName) === true && isNaN(lastName) === true)
-    {
-        var searchPerson = people.filter(function (person)
+  return people.filter(function (person)
         {
             if (person.firstName.toLowerCase() === firstName.toLowerCase() && person.lastName.toLowerCase() === lastName.toLowerCase())
             {
+              getImmediateFamily(person, people);
                 return true;
             }
             else
@@ -161,21 +138,6 @@ function SearchForImmediateFamily(people)
                 return false;
             }
         });
-        if(searchPerson.length === 1)
-        {
-            getImmediateFamily(searchPerson[0], data);
-        }
-        else
-        {
-
-            alert("No Name Found");
-        }
-    }
-    else
-    {
-        alert("No name Found");
-        initSearch(people);
-    }
 }
 
 function getImmediateFamily(person, people)
@@ -235,8 +197,6 @@ function getChildren(person, people){
 
 function SearchForNextKin(people)
 {
-    var firstName = getFirstName();
-    var lastName = getLastName();
     if(isNaN(firstName) === true && isNaN(lastName) === true)
     {
         var searchPerson = people.filter(function (person)
