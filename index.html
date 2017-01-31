@@ -6,21 +6,52 @@
   </head>
   <body bgcolor = "black">
   <center>
-  <p><h1><font color="red">Most Wanted Search Engine</font></h1></p>
-  <button onclick="initSearch(data)">Start Searching</button>
+  <p><h1><font color="yellow">Most Wanted Search Engine</font></h1></p>
+  <button onclick="initSearch(data)"><b>Search Record</b></button>
   <br><br>
   <img src="fbi.jpg" height="600px" width="1200px" >
   </center>
 
 
 <script>
-  alert("WARNING!!! You are about to enter a confidential site \nPlease Exit the site if you're not authorize");
-  prompt("Please enter your agent name:");
+
+DisplayWarning();
+
+function DisplayWarning()
+{
+  var option = confirm("WARNING!!! WARNING!!! WARNING!!! \nYou are about to enter a confidential site \nPlease Exit the site if you're not authorize");
+  if (option == true)
+  {
+    var firstName = getName();
+    welcomeAgent(firstName);
+  }
+  else
+  {
+    onclick = window.close();
+  }
+
+}
+
+function getName()
+{
+  var agentName = prompt("Agent Please enter your name:");
+  if (agentName == "")
+  {
+    getName();
+  }
+  return agentName;
+}
+
+function welcomeAgent(firstName)
+{
+  alert('Weclome back agent ' + firstName);
+}
+
 </script>
 
-    <script src="data.js"></script>
-    <script src="gui.js"></script>
-    <script src="gui-spec.js"></script>
-    <script src="app.js"></script>
+<script src="data.js"></script>
+<script src="gui.js"></script>
+<script src="gui-spec.js"></script>
+<script src="app.js"></script>
   </body>
 </html>
